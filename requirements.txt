@@ -1,0 +1,2 @@
+python-telegram-bot>=20.0
+impuestito>=0.4b0
