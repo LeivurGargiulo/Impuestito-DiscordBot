@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Main Discord Bot
+  discord-bot:
+    build: .
+    container_name: impuestito-discord-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - BOT_OWNER_ID=${BOT_OWNER_ID:-}
+      - BOT_PREFIX=${BOT_PREFIX:-!}
+      - DEBUG_MODE=${DEBUG_MODE:-false}
+      - RATE_LIMIT_COMMANDS=${RATE_LIMIT_COMMANDS:-5}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60}
+      - CACHE_TTL=${CACHE_TTL:-300}
+      - CACHE_MAXSIZE=${CACHE_MAXSIZE:-1000}
+      - API_TIMEOUT=${API_TIMEOUT:-10}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      - HEALTH_CHECK_INTERVAL=${HEALTH_CHECK_INTERVAL:-300}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENABLE_FILE_LOGGING=${ENABLE_FILE_LOGGING:-true}
+      - LOG_FILE=${LOG_FILE:-bot.log}
+      # Redis configuration (uncomment if using Redis)
+      # - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    depends_on:
+      - redis
+    networks:
+      - bot-network
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: impuestito-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - bot-network
+
+  # Redis Commander for web interface (optional)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: impuestito-redis-commander
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - bot-network
+
+volumes:
+  redis-data:
+
+networks:
+  bot-network:
+    driver: bridge
