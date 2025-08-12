@@ -1,257 +1,346 @@
-# 🤖 Bot de Impuestito para Discord
+# 🤖 Impuestito Discord Bot - Production Ready
 
-Bot de Discord que proporciona información sobre cotizaciones de monedas y cálculos de impuestos en Argentina usando el paquete `impuestito`. Convertido desde el bot original de Telegram.
+A clean, optimized, and maintainable Discord bot that provides currency exchange and tax calculation information for Argentina using the impuestito package.
 
-## ✨ Características
+## ✨ Features
 
-- **Cotizaciones en tiempo real**: Dólar oficial, blue, euro oficial y euro blue
-- **Cálculos de impuestos**: Impuesto país automático
-- **Conversiones de monedas**: Dólar a pesos argentinos
-- **Comandos intuitivos**: Prefijo `!` con aliases para facilidad de uso
-- **Embeds visuales**: Respuestas formateadas y coloridas
-- **Sistema de debug**: Información detallada del estado del bot
-- **Manejo de errores robusto**: Logging completo y mensajes de error amigables
-- **Estructura modular**: Organización en cogs para fácil mantenimiento
-- **Tareas en segundo plano**: Limpieza automática y actualización de estado
+### 🚀 Performance & Stability
+- **Efficient Async Handling**: Non-blocking event processing for smooth operation
+- **Intelligent Caching**: Reduces API calls and improves response times
+- **Rate Limiting**: Prevents abuse and ensures fair usage
+- **Health Monitoring**: Real-time bot health checks and diagnostics
+- **Error Recovery**: Comprehensive error handling with automatic recovery
 
-## 🚀 Instalación
+### 🔒 Security & Reliability
+- **Environment Variables**: Secure configuration management
+- **Input Validation**: Robust parameter validation and sanitization
+- **API Protection**: Rate limiting and timeout management
+- **Logging**: Comprehensive logging for debugging and monitoring
 
-### Prerrequisitos
+### 📊 Monitoring & Analytics
+- **Performance Metrics**: Real-time bot performance tracking
+- **System Monitoring**: CPU, memory, disk, and network usage
+- **Error Tracking**: Detailed error logging and analysis
+- **Cache Analytics**: Cache hit rates and performance optimization
 
-- Python 3.8 o superior
-- Token de bot de Discord
+### 🛠️ Developer Experience
+- **Modular Architecture**: Clean, maintainable code structure
+- **Comprehensive Documentation**: Detailed code comments and examples
+- **Easy Configuration**: Simple environment-based configuration
+- **Testing Support**: Built-in testing framework support
 
-### Pasos de instalación
+## 🚀 Quick Start
 
-1. **Clonar el repositorio**
+### Prerequisites
+- Python 3.8 or higher
+- Discord Bot Token
+- Git
+
+### Installation
+
+1. **Clone the repository**
    ```bash
-   git clone <url-del-repositorio>
-   cd discord-impuestito-bot
+   git clone <repository-url>
+   cd discord-bot-impuestito
    ```
 
-2. **Instalar dependencias**
+2. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Configurar el bot**
+3. **Configure environment variables**
    ```bash
    cp .env.example .env
-   # Editar .env con tu token de Discord
+   # Edit .env with your configuration
    ```
 
-4. **Obtener token de Discord**
-   - Ve a [Discord Developer Portal](https://discord.com/developers/applications)
-   - Crea una nueva aplicación
-   - Ve a la sección "Bot"
-   - Copia el token y agrégalo a tu archivo `.env`
+4. **Set up your Discord bot**
+   - Go to [Discord Developer Portal](https://discord.com/developers/applications)
+   - Create a new application
+   - Go to the "Bot" section
+   - Copy your bot token
+   - Add the token to your `.env` file
 
-5. **Configurar permisos del bot**
-   - En el Developer Portal, ve a "OAuth2" > "URL Generator"
-   - Selecciona los scopes: `bot` y `applications.commands`
-   - Selecciona los permisos: `Send Messages`, `Use Slash Commands`, `Embed Links`
-   - Usa la URL generada para invitar el bot a tu servidor
+5. **Run the bot**
+   ```bash
+   python bot.py
+   ```
 
-## 📋 Comandos Disponibles
+## ⚙️ Configuration
 
-### Comandos Básicos
-- `!start` / `!help` / `!ayuda` - Muestra el mensaje de ayuda
-- `!ping` - Verifica la latencia del bot
-- `!status` - Estado general del bot
-- `!debug` - Información detallada de debug (con cooldown)
+### Environment Variables
 
-### Comandos de Cotizaciones
-- `!cotizacion` / `!cotizaciones` / `!cot` - Cotización completa de todas las monedas
-- `!oficial` - Cotización del dólar oficial
-- `!blue` - Cotización del dólar blue
-- `!euro` - Cotización del euro oficial
-- `!euro_blue` - Cotización del euro blue
-
-### Comandos de Cálculos
-- `!impuesto_pais <cantidad>` / `!impuesto <cantidad>` - Calcula el impuesto país
-- `!dolar_pesos <cantidad>` / `!usd_ars <cantidad>` - Convierte dólares a pesos
-
-### Comandos de Administración
-- `!reload` - Recarga todos los cogs (solo para el dueño del bot)
-- `!servers` / `!guilds` - Muestra información de servidores conectados
-
-## 🏗️ Estructura del Proyecto
-
-```
-discord-impuestito-bot/
-├── discord_bot.py              # Bot principal (versión simple)
-├── discord_bot_modular.py      # Bot principal (versión modular)
-├── cogs/
-│   ├── currency_commands.py    # Comandos de cotizaciones y conversiones
-│   └── debug_commands.py       # Comandos de debug y utilidades
-├── requirements.txt            # Dependencias del proyecto
-├── .env.example               # Ejemplo de configuración
-├── .env                       # Configuración real (crear manualmente)
-└── README.md                  # Este archivo
-```
-
-## 🔧 Configuración
-
-### Variables de Entorno
-
-Crea un archivo `.env` con las siguientes variables:
+Create a `.env` file based on `.env.example`:
 
 ```env
-# Token del bot de Discord (requerido)
-DISCORD_BOT_TOKEN=tu_token_aqui
+# Required
+DISCORD_BOT_TOKEN=your_bot_token_here
 
-# Configuración opcional
-PREFIX=!
-LOG_LEVEL=INFO
+# Optional
+BOT_OWNER_ID=your_user_id_here
+BOT_PREFIX=!
+DEBUG_MODE=false
+
+# Rate Limiting
+RATE_LIMIT_COMMANDS=5
+RATE_LIMIT_WINDOW=60
+
+# Caching
+CACHE_TTL=300
+CACHE_MAXSIZE=1000
+
+# API Settings
+API_TIMEOUT=10
+MAX_RETRIES=3
+
+# Health Checks
+HEALTH_CHECK_INTERVAL=300
 ```
 
-### Permisos del Bot
+### Bot Permissions
 
-El bot requiere los siguientes permisos:
-- **Send Messages**: Para enviar respuestas
-- **Embed Links**: Para enviar embeds formateados
-- **Use Slash Commands**: Para comandos de barra (futuro)
-- **Read Message History**: Para contexto de comandos
+Your bot needs the following permissions:
+- Send Messages
+- Embed Links
+- Read Message History
+- Use Slash Commands (if using slash commands)
 
-## 🚀 Ejecución
+## 📋 Commands
 
-### Versión Simple
-```bash
-python discord_bot.py
+### 💰 Currency Commands
+- `!cotizacion` - Get all currency exchange rates
+- `!oficial` - Get official dollar rate
+- `!blue` - Get blue dollar rate
+- `!euro` - Get official euro rate
+- `!euro_blue` - Get blue euro rate
+- `!impuesto_pais <amount>` - Calculate country tax
+- `!dolar_pesos <amount>` - Convert USD to ARS
+- `!pesos_dolar <amount>` - Convert ARS to USD
+- `!comparar <amount>` - Compare official vs blue rates
+
+### 🔧 Utility Commands
+- `!help` - Show help information
+- `!status` - Bot status and statistics
+- `!ping` - Check bot latency
+- `!info` - Server information
+
+### 🛠️ Debug Commands (Admin Only)
+- `!system` - System information
+- `!performance` - Performance metrics
+- `!errors` - Recent errors
+- `!rate_limits` - Rate limit information
+- `!cache_info` - Cache statistics
+- `!guilds` - Guild information
+- `!test_api` - API connectivity test
+- `!reload` - Reload cogs
+- `!debug` - Debug information
+
+## 🏗️ Architecture
+
+### Modular Design
+```
+bot.py                 # Main bot file
+├── cogs/             # Command modules
+│   ├── currency_commands.py
+│   └── debug_commands.py
+├── config/           # Configuration
+├── logs/             # Log files
+└── tests/            # Test files
 ```
 
-### Versión Modular (Recomendada)
-```bash
-python discord_bot_modular.py
-```
+### Key Components
 
-## 📊 Ejemplos de Uso
+1. **ImpuestitoBot Class**: Enhanced bot with production features
+2. **BotConfig**: Centralized configuration management
+3. **Caching System**: TTL-based caching for API responses
+4. **Rate Limiting**: User-based rate limiting
+5. **Health Monitoring**: Automated health checks
+6. **Error Handling**: Comprehensive error management
 
-### Cotización Completa
-```
-!cotizacion
-```
-**Respuesta**: Embed con todas las cotizaciones actuales (oficial, blue, euro oficial, euro blue)
+## 🔧 Advanced Configuration
 
-### Cálculo de Impuesto País
-```
-!impuesto_pais 100
-```
-**Respuesta**: 
-- Cantidad original: $100 USD
-- Impuesto agregado: $30 USD
-- Cantidad final: $130 USD
+### Redis Integration (Optional)
 
-### Conversión de Monedas
-```
-!dolar_pesos 50
-```
-**Respuesta**: Conversión de $50 USD a pesos argentinos usando el dólar oficial
+For distributed caching, you can use Redis:
 
-### Debug del Bot
-```
-!debug
-```
-**Respuesta**: Información detallada del estado del bot, estadísticas y errores recientes
+1. **Install Redis**
+   ```bash
+   # Ubuntu/Debian
+   sudo apt-get install redis-server
+   
+   # macOS
+   brew install redis
+   ```
 
-## 🔍 Características Técnicas
+2. **Configure Redis URL**
+   ```env
+   REDIS_URL=redis://localhost:6379/0
+   ```
 
-### Manejo de Errores
-- **Logging completo**: Todos los errores se registran con contexto
-- **Mensajes amigables**: Los usuarios reciben mensajes de error claros
-- **Recuperación automática**: El bot continúa funcionando después de errores
-- **Limpieza de logs**: Los errores antiguos se limpian automáticamente
+### Custom Cogs
 
-### Rendimiento
-- **Async/await**: Todas las operaciones son asíncronas
-- **Tareas en segundo plano**: Limpieza automática y actualización de estado
-- **Cooldowns**: Prevención de spam en comandos críticos
-- **Caching**: Datos de cotizaciones se mantienen actualizados
+To add custom functionality:
 
-### Seguridad
-- **Validación de argumentos**: Verificación de tipos y rangos
-- **Permisos granulares**: Comandos administrativos protegidos
-- **Tokens seguros**: Configuración mediante variables de entorno
+1. **Create a new cog file**
+   ```python
+   # cogs/my_cog.py
+   from discord.ext import commands
+   
+   class MyCog(commands.Cog):
+       def __init__(self, bot):
+           self.bot = bot
+       
+       @commands.command()
+       async def mycommand(self, ctx):
+           await ctx.send("Hello!")
+   
+   async def setup(bot):
+       await bot.add_cog(MyCog(bot))
+   ```
 
-## 🛠️ Desarrollo
+2. **The bot will automatically load it**
 
-### Agregar Nuevos Comandos
+## 📊 Monitoring
 
-1. **Para comandos de cotizaciones**: Edita `cogs/currency_commands.py`
-2. **Para comandos de utilidades**: Edita `cogs/debug_commands.py`
-3. **Para comandos principales**: Edita el archivo principal del bot
-
-### Estructura de un Comando
-
-```python
-@bot.command(name='mi_comando', aliases=['alias1', 'alias2'])
-async def mi_comando(ctx, argumento: float):
-    """Descripción del comando"""
-    try:
-        # Lógica del comando
-        embed = discord.Embed(
-            title="Título",
-            description="Descripción",
-            color=discord.Color.blue()
-        )
-        await ctx.send(embed=embed)
-    except Exception as e:
-        logger.error(f"Error en mi_comando: {e}")
-        await ctx.send("❌ Error en el comando.")
-```
+### Health Checks
+The bot performs automatic health checks every 5 minutes:
+- Latency monitoring
+- Error rate analysis
+- Cache performance
+- System resource usage
 
 ### Logging
+Logs are written to both console and file:
+- Command execution
+- Error tracking
+- Performance metrics
+- System events
 
-El bot usa el módulo `logging` de Python con configuración detallada:
-- **Nivel**: INFO por defecto
-- **Formato**: Timestamp, nombre del logger, nivel, mensaje
-- **Archivos**: Los logs se pueden redirigir a archivos
+### Metrics Available
+- Commands executed per hour
+- Error rates
+- Cache hit rates
+- API response times
+- System resource usage
 
-## 🚀 Despliegue
+## 🚀 Performance Optimization
 
-### VPS/Cloud
-1. Sube el código a tu servidor
-2. Instala Python y las dependencias
-3. Configura el archivo `.env`
-4. Ejecuta el bot con `python discord_bot_modular.py`
+### Caching Strategy
+- **TTL-based caching**: 5-minute cache for currency data
+- **Intelligent invalidation**: Automatic cache cleanup
+- **Memory efficient**: Configurable cache size limits
 
-### Docker (Próximamente)
+### Rate Limiting
+- **User-based limits**: 5 commands per minute per user
+- **Command-specific limits**: Different limits for different commands
+- **Automatic cleanup**: Old rate limit data is cleaned up
+
+### API Optimization
+- **Connection pooling**: Reuses HTTP connections
+- **Timeout management**: Configurable API timeouts
+- **Retry logic**: Automatic retry for failed requests
+
+## 🧪 Testing
+
+### Running Tests
 ```bash
-docker build -t discord-impuestito-bot .
-docker run -d --env-file .env discord-impuestito-bot
+# Install test dependencies
+pip install pytest pytest-asyncio
+
+# Run tests
+pytest
+
+# Run with coverage
+pytest --cov=.
 ```
 
-### Servicios en la Nube
-- **Heroku**: Compatible con Procfile
-- **Railway**: Despliegue directo desde GitHub
-- **DigitalOcean**: App Platform o Droplet
-- **AWS**: EC2 o Lambda
+### Test Structure
+```
+tests/
+├── test_bot.py
+├── test_currency_commands.py
+├── test_debug_commands.py
+└── conftest.py
+```
 
-## 🤝 Contribución
+## 🔍 Troubleshooting
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+### Common Issues
 
-## 📝 Licencia
+1. **Bot not responding**
+   - Check bot token in `.env`
+   - Verify bot permissions
+   - Check bot is online
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+2. **Commands not working**
+   - Verify command prefix
+   - Check bot permissions in server
+   - Review error logs
 
-## 🙏 Agradecimientos
+3. **High latency**
+   - Check internet connection
+   - Monitor system resources
+   - Review API response times
 
-- **impuestito**: Paquete Python para cálculos de impuestos argentinos
-- **discord.py**: Biblioteca para crear bots de Discord
-- **python-telegram-bot**: Bot original de Telegram que sirvió como base
+4. **Cache issues**
+   - Check cache configuration
+   - Monitor cache hit rates
+   - Review cache cleanup logs
 
-## 📞 Soporte
+### Debug Commands
+Use the built-in debug commands to diagnose issues:
+- `!system` - System resource usage
+- `!performance` - Bot performance metrics
+- `!errors` - Recent error logs
+- `!test_api` - API connectivity test
 
-Si tienes problemas o preguntas:
-1. Revisa la documentación
-2. Busca en los issues existentes
-3. Crea un nuevo issue con detalles del problema
+## 📈 Scaling
+
+### Horizontal Scaling
+For high-traffic scenarios:
+1. **Use Redis**: Enable distributed caching
+2. **Load Balancing**: Run multiple bot instances
+3. **Database**: Add persistent storage for analytics
+
+### Vertical Scaling
+For single-instance optimization:
+1. **Increase cache size**: Adjust `CACHE_MAXSIZE`
+2. **Optimize rate limits**: Adjust rate limiting parameters
+3. **System resources**: Increase CPU/memory allocation
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+### Code Style
+- Follow PEP 8
+- Add type hints
+- Include docstrings
+- Write tests for new features
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- [discord.py](https://github.com/Rapptz/discord.py) - Discord API wrapper
+- [impuestito](https://github.com/impuestito/impuestito) - Argentine tax calculations
+- [aiohttp](https://github.com/aio-libs/aiohttp) - Async HTTP client
+- [cachetools](https://github.com/tkem/cachetools) - Caching utilities
+
+## 📞 Support
+
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the troubleshooting section
 
 ---
 
-**¡Disfruta usando el bot de Impuestito para Discord! 🎉**
+**Made with ❤️ for the Argentine developer community**
